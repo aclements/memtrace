@@ -12,7 +12,7 @@ import (
 	"os"
 	"strconv"
 
-	"./memtrace"
+	"../../memtrace"
 )
 
 func main() {

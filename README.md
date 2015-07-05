@@ -29,15 +29,18 @@ where `CMD` is the command you want to trace. This will generate a
 Processing
 ----------
 
-There is a Go package in the `memtrace` directory for reading the log
-format. You can build your own tools to process the log format using
-this package, or use some of the simple tools included in this
-repository.
+The `cmd` directory contains some simple tools for processing memory
+logs. To build these a tool, change to its directory and run `go
+build`.
 
-`dump.go` prints the records from a trace, optionally narrowed to a
+`cmd/dump` prints the records from a trace, optionally narrowed to a
 range of records. This is useful for seeing the details around a
 particular time in program execution once another tool has been used
 to find interesting points in execution.
 
-`pcs.go` prints the program counters of all writes to a particular
+`cmd/pcs` prints the program counters of all writes to a particular
 address.
+
+The `memtrace` directory contains a Go package for reading the log
+format. You can build your own tools to process memory logs using this
+package.
