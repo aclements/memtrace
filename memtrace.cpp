@@ -20,21 +20,6 @@ BUFFER_ID buf;
 int logFD;
 PIN_LOCK logLock;
 
-// char mybuf[1024];
-// int mybufPos;
-
-// VOID recordWrite(VOID *ip, VOID *addr)
-// {
-//         fprintf(trace,"%p: W %p\n", ip, addr);
-//         const char x[] = "x";
-//         if (write(logFD, x, 1) <= 0) {
-//                 fprintf(stderr, "write failed\n");
-//         }
-
-//         mybuf[mybufPos] = 'x';
-//         mybufPos = (mybufPos + 1) % 1024;
-// }
-
 VOID
 insInstruction(INS ins, VOID *v)
 {
@@ -49,12 +34,6 @@ insInstruction(INS ins, VOID *v)
                         IARG_INST_PTR, offsetof(struct record, pc),
                         IARG_MEMORYOP_EA, i, offsetof(struct record, ea),
                         IARG_END);                
-
-                // INS_InsertPredicatedCall(
-                //         ins, IPOINT_BEFORE, (AFUNPTR)recordWrite,
-                //         IARG_INST_PTR,
-                //         IARG_MEMORYOP_EA, i,
-                //         IARG_END);                
         }
 }
 
@@ -132,11 +111,6 @@ freeCbuf(void *cbuf)
         delete[] (char*)cbuf;
 }
 
-VOID Fini(INT32 code, VOID *v) 
-{
-        printf("FINI\n");
-}
-
 struct timespec futexTimeout = {
         .tv_sec = 1000,
         .tv_nsec = 0,
@@ -193,7 +167,6 @@ main(int argc, char **argv)
         PIN_InitLock(&logLock);
 
         INS_AddInstrumentFunction(insInstruction, 0);
-        // PIN_AddFiniFunction(Fini, 0);
 
         PIN_AddSyscallEntryFunction(insSyscall, 0);
 
