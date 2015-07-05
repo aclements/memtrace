@@ -2,6 +2,11 @@ This repository contains a Pintool that logs the program counter and
 address of all memory writes to a compact on-disk log, plus some
 simple tools to examine that log.
 
+The tools are written in Go, so the recommended way to fetch this
+repository is
+
+    go get github.com/aclements/memtrace
+
 Building
 --------
 
